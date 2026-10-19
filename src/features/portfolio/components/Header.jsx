@@ -149,28 +149,35 @@ export function Header() {
                 setMenuOpen(false);
               }}
             >
-              {/* Arcade Cartridge Box */}
-              <div className="relative grid size-10 sm:size-11 shrink-0 place-items-center border-2 border-ink bg-ink text-sm font-black text-white shadow-[3px_3px_0_0_#ff432b] transition-all duration-150 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:shadow-[5px_5px_0_0_#ff432b] active:translate-x-[2px] active:translate-y-[2px] active:shadow-none">
-                <span className="font-mono text-xs sm:text-sm tracking-tight text-acid">A.</span>
+              {/* Arcade Cartridge Box / Monogram Insignia */}
+              <div className="relative grid size-10 sm:size-11 shrink-0 place-items-center border-2 border-ink bg-ink text-white shadow-[3px_3px_0_0_#ff432b] transition-all duration-150 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:shadow-[5px_5px_0_0_#ff432b] active:translate-x-[2px] active:translate-y-[2px] active:shadow-none overflow-hidden">
+                <div className="absolute inset-0 bg-gradient-to-br from-white/15 to-transparent pointer-events-none" />
+                <svg className="size-5 sm:size-6 text-white transition-transform duration-200 group-hover:scale-110" viewBox="0 0 24 24" fill="none">
+                  <path d="M12 3L4 20H8.5L10 16.5H14L15.5 20H20L12 3Z" fill="currentColor" />
+                  <path d="M12 7.5L13.5 12.5H10.5L12 7.5Z" fill="#ff432b" />
+                  <circle cx="12" cy="10" r="0.9" fill="#00e599" />
+                </svg>
                 <span className="absolute -right-1 -top-1 size-2 bg-red border border-ink" />
                 <span className="absolute -bottom-1 -left-1 size-1.5 bg-acid border border-ink" />
               </div>
 
               <div className="flex flex-col">
                 <div className="flex items-center gap-1.5">
-                  <span className="font-mono text-[11px] sm:text-xs font-black uppercase tracking-[0.18em] text-ink transition-colors duration-150 group-hover:text-red">
-                    AHMAD.EXE
+                  <span className="font-mono text-xs sm:text-sm font-black uppercase tracking-wider text-ink transition-colors duration-150 group-hover:text-red">
+                    AHMAD IS'EED
                   </span>
-                  <span className="inline-block border border-ink bg-acid px-1 font-mono text-[8px] font-black uppercase tracking-wider text-ink">
+                  <span className="inline-block border border-ink bg-acid px-1 font-mono text-[8px] font-black uppercase tracking-wider text-ink shadow-[1px_1px_0_0_#192124]">
                     1P
                   </span>
                 </div>
 
                 <div className="mt-0.5 flex items-center gap-2 font-mono text-[8px] sm:text-[9px] font-bold uppercase tracking-wider text-muted">
-                  <span className="text-red font-black inline-flex items-center gap-0.5">
-                    <span className="animate-pulse">♥</span>♥♥
+                  <span className="text-red font-black inline-flex items-center gap-1">
+                    <span className="size-1.5 rounded-full bg-red animate-pulse" />
+                    SYS.ENGINEER
                   </span>
-                  <span className="hidden sm:inline text-ink font-black">LVL.01</span>
+                  <span className="hidden sm:inline text-muted/50">//</span>
+                  <span className="hidden sm:inline text-ink font-black">LVL.99</span>
                 </div>
               </div>
             </a>

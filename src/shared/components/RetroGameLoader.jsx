@@ -102,15 +102,16 @@ export function RetroGameLoader({ onComplete }) {
         {/* Retro Header Bar */}
         <div className="flex items-center justify-between border-b-2 border-ink pb-3 font-mono text-[10px] sm:text-xs font-black uppercase tracking-[0.2em]">
           <div className="flex items-center gap-2">
-            <span className="inline-block size-2.5 rounded-full bg-red animate-ping" />
-            <span className="text-red">1P</span>
-            <span className="text-ink">SCORE 09840</span>
+            <span className="inline-block size-2 rounded-full bg-red animate-ping" />
+            <span className="text-red font-black">AHMAD IS'EED</span>
+            <span className="text-muted/40">//</span>
+            <span className="text-ink">SYSTEM BOOT</span>
           </div>
 
           <div className="flex items-center gap-1.5 text-muted">
-            <span>HI 99990</span>
+            <span className="text-ink font-bold">1P READY</span>
             <span className="mx-1">|</span>
-            <span className="text-ink">WORLD 1-1</span>
+            <span className="text-red">WORLD 1-1</span>
           </div>
         </div>
 
