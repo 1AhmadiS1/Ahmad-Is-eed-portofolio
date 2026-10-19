@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { X, GitBranch, Globe, CheckCircle2, Terminal } from 'lucide-react';
 import { ProjectCRTMonitor } from './ProjectCRTMonitor';
+import { playArcadeSound } from '@/shared/utils/sound';
 
 function LinkedinIcon({ size = 13 }) {
   return (
@@ -144,6 +145,7 @@ export function ProjectModal({ project, onClose }) {
                 href={project.github_link}
                 target="_blank"
                 rel="noreferrer"
+                onClick={() => playArcadeSound('click')}
                 className="arcade-btn arcade-btn--github"
               >
                 <GitBranch size={13} />
@@ -156,6 +158,7 @@ export function ProjectModal({ project, onClose }) {
                 href={project.linkedin_link}
                 target="_blank"
                 rel="noreferrer"
+                onClick={() => playArcadeSound('click')}
                 className="arcade-btn arcade-btn--linkedin"
               >
                 <LinkedinIcon size={13} />
@@ -168,6 +171,7 @@ export function ProjectModal({ project, onClose }) {
                 href={project.website_link}
                 target="_blank"
                 rel="noreferrer"
+                onClick={() => playArcadeSound('click')}
                 className="arcade-btn arcade-btn--live"
               >
                 <Globe size={13} />

@@ -18,21 +18,35 @@ export function SpaceRoomInterlude({
   const [isHovered, setIsHovered] = useState(false);
   const [shockwaves, setShockwaves] = useState([]);
   const containerRef = useRef(null);
+  const rAFRef = useRef(null);
 
   const handleMouseMove = (e) => {
     if (!containerRef.current) return;
-    const rect = containerRef.current.getBoundingClientRect();
-    const x = (e.clientX - rect.left) / rect.width - 0.5;
-    const y = (e.clientY - rect.top) / rect.height - 0.5;
-    setMousePos({ x, y });
-    setCursorCoord({
-      x: ((e.clientX - rect.left) / rect.width) * 100,
-      y: ((e.clientY - rect.top) / rect.height) * 100,
+    const clientX = e.clientX;
+    const clientY = e.clientY;
+
+    if (rAFRef.current) return;
+
+    rAFRef.current = window.requestAnimationFrame(() => {
+      rAFRef.current = null;
+      if (!containerRef.current) return;
+      const rect = containerRef.current.getBoundingClientRect();
+      const x = (clientX - rect.left) / rect.width - 0.5;
+      const y = (clientY - rect.top) / rect.height - 0.5;
+      setMousePos({ x, y });
+      setCursorCoord({
+        x: ((clientX - rect.left) / rect.width) * 100,
+        y: ((clientY - rect.top) / rect.height) * 100,
+      });
     });
   };
 
   const handleMouseEnter = () => setIsHovered(true);
   const handleMouseLeave = () => {
+    if (rAFRef.current) {
+      window.cancelAnimationFrame(rAFRef.current);
+      rAFRef.current = null;
+    }
     setIsHovered(false);
     setMousePos({ x: 0, y: 0 });
   };
@@ -49,6 +63,48 @@ export function SpaceRoomInterlude({
     }, 1000);
   };
 
+  const handleTouchStart = (e) => {
+    setIsHovered(true);
+    const touch = e.touches[0];
+    if (!touch || !containerRef.current) return;
+    const rect = containerRef.current.getBoundingClientRect();
+    const x = (touch.clientX - rect.left) / rect.width - 0.5;
+    const y = (touch.clientY - rect.top) / rect.height - 0.5;
+    setMousePos({ x, y });
+    setCursorCoord({
+      x: ((touch.clientX - rect.left) / rect.width) * 100,
+      y: ((touch.clientY - rect.top) / rect.height) * 100,
+    });
+    // Trigger shockwave on tap
+    const shockX = ((touch.clientX - rect.left) / rect.width) * 100;
+    const shockY = ((touch.clientY - rect.top) / rect.height) * 100;
+    const newWave = { id: Date.now(), x: shockX, y: shockY };
+    setShockwaves((prev) => [...prev.slice(-3), newWave]);
+    setTimeout(() => {
+      setShockwaves((prev) => prev.filter((w) => w.id !== newWave.id));
+    }, 1000);
+  };
+
+  const handleTouchMove = (e) => {
+    const touch = e.touches[0];
+    if (!touch || !containerRef.current) return;
+    const rect = containerRef.current.getBoundingClientRect();
+    const x = (touch.clientX - rect.left) / rect.width - 0.5;
+    const y = (touch.clientY - rect.top) / rect.height - 0.5;
+    setMousePos({ x, y });
+    setCursorCoord({
+      x: ((touch.clientX - rect.left) / rect.width) * 100,
+      y: ((touch.clientY - rect.top) / rect.height) * 100,
+    });
+  };
+
+  const handleTouchEnd = () => {
+    setTimeout(() => {
+      setIsHovered(false);
+      setMousePos({ x: 0, y: 0 });
+    }, 1000);
+  };
+
   return (
     <section
       ref={containerRef}
@@ -56,6 +112,9 @@ export function SpaceRoomInterlude({
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
       onClick={handleClick}
+      onTouchStart={handleTouchStart}
+      onTouchMove={handleTouchMove}
+      onTouchEnd={handleTouchEnd}
       className={`space-room-section relative w-full h-[320px] sm:h-[380px] overflow-hidden select-none border-y-2 border-ink bg-[#07090b] cursor-crosshair transition-colors duration-500 ${
         isHovered ? 'space-room--active' : ''
       }`}

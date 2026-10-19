@@ -3,6 +3,7 @@ import { ProjectCard } from './ProjectCard';
 import { ProjectModal } from './ProjectModal';
 import { RetroGitHubWarp } from './RetroGitHubWarp';
 import { Rocket, ChevronLeft, ChevronRight, Gamepad2 } from 'lucide-react';
+import { playArcadeSound } from '@/shared/utils/sound';
 
 export function WorkSection({ projects = [], loading = false }) {
   const [selectedProject, setSelectedProject] = useState(null);
@@ -12,18 +13,21 @@ export function WorkSection({ projects = [], loading = false }) {
 
   const prevProject = useCallback(() => {
     if (!projects.length) return;
+    playArcadeSound('swap');
     setSlideDirection('left');
     setCurrentIndex((prev) => (prev === 0 ? projects.length - 1 : prev - 1));
   }, [projects.length]);
 
   const nextProject = useCallback(() => {
     if (!projects.length) return;
+    playArcadeSound('swap');
     setSlideDirection('right');
     setCurrentIndex((prev) => (prev === projects.length - 1 ? 0 : prev + 1));
   }, [projects.length]);
 
   const jumpToProject = (idx) => {
     if (idx === currentIndex) return;
+    playArcadeSound('swap');
     setSlideDirection(idx > currentIndex ? 'right' : 'left');
     setCurrentIndex(idx);
   };
@@ -202,7 +206,10 @@ export function WorkSection({ projects = [], loading = false }) {
                   <ProjectCard
                     project={currentProject}
                     index={currentIndex}
-                    onInspect={(p) => setSelectedProject(p)}
+                    onInspect={(p) => {
+                      playArcadeSound('expand');
+                      setSelectedProject(p);
+                    }}
                   />
                 </div>
               )}
@@ -303,7 +310,10 @@ export function WorkSection({ projects = [], loading = false }) {
       {selectedProject && (
         <ProjectModal
           project={selectedProject}
-          onClose={() => setSelectedProject(null)}
+          onClose={() => {
+            playArcadeSound('close');
+            setSelectedProject(null);
+          }}
         />
       )}
     </section>

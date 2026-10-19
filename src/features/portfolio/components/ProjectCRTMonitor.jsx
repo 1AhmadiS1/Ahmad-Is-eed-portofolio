@@ -1,5 +1,6 @@
 import { useState, useRef } from 'react';
 import { Play, Pause, ChevronLeft, ChevronRight, Maximize2, Monitor, Image as ImageIcon, Cpu, Volume2, VolumeX, Tv, ExternalLink } from 'lucide-react';
+import { playArcadeSound } from '@/shared/utils/sound';
 
 /**
  * Convert Google Drive or YouTube links into embeddable preview URLs
@@ -57,6 +58,7 @@ export function ProjectCRTMonitor({ project, onExpand }) {
   // Video controls for native video
   const togglePlay = () => {
     if (!videoRef.current) return;
+    playArcadeSound('click');
     if (isPlaying) {
       videoRef.current.pause();
       setIsPlaying(false);
@@ -67,11 +69,13 @@ export function ProjectCRTMonitor({ project, onExpand }) {
 
   const toggleMute = () => {
     if (!videoRef.current) return;
+    playArcadeSound('click');
     videoRef.current.muted = !isMuted;
     setIsMuted(!isMuted);
   };
 
   const switchVideo = (index) => {
+    playArcadeSound('tab');
     setCurrentVideoIndex(index);
     setIsPlaying(false);
     if (videoRef.current) {
@@ -83,11 +87,13 @@ export function ProjectCRTMonitor({ project, onExpand }) {
   // Gallery controls
   const prevImage = () => {
     if (!hasImages) return;
+    playArcadeSound('swap');
     setCurrentImageIndex((prev) => (prev === 0 ? images.length - 1 : prev - 1));
   };
 
   const nextImage = () => {
     if (!hasImages) return;
+    playArcadeSound('swap');
     setCurrentImageIndex((prev) => (prev === images.length - 1 ? 0 : prev + 1));
   };
 
@@ -100,7 +106,10 @@ export function ProjectCRTMonitor({ project, onExpand }) {
           {hasVideos && (
             <button
               type="button"
-              onClick={() => setActiveTab('video')}
+              onClick={() => {
+                playArcadeSound('tab');
+                setActiveTab('video');
+              }}
               className={`crt-mode-tab ${activeTab === 'video' ? 'crt-mode-tab--active' : ''}`}
             >
               <Play size={10} className="fill-current" />
@@ -112,7 +121,10 @@ export function ProjectCRTMonitor({ project, onExpand }) {
           {hasImages && (
             <button
               type="button"
-              onClick={() => setActiveTab('gallery')}
+              onClick={() => {
+                playArcadeSound('tab');
+                setActiveTab('gallery');
+              }}
               className={`crt-mode-tab ${activeTab === 'gallery' ? 'crt-mode-tab--active' : ''}`}
             >
               <ImageIcon size={10} />
@@ -123,7 +135,10 @@ export function ProjectCRTMonitor({ project, onExpand }) {
           {/* Specs mode tab */}
           <button
             type="button"
-            onClick={() => setActiveTab('specs')}
+            onClick={() => {
+              playArcadeSound('tab');
+              setActiveTab('specs');
+            }}
             className={`crt-mode-tab ${activeTab === 'specs' ? 'crt-mode-tab--active' : ''}`}
           >
             <Cpu size={10} />
@@ -138,6 +153,7 @@ export function ProjectCRTMonitor({ project, onExpand }) {
               href={activeVideo.url}
               target="_blank"
               rel="noreferrer"
+              onClick={() => playArcadeSound('click')}
               className="hidden sm:inline-flex items-center gap-1 font-mono text-[9px] font-black text-acid hover:underline"
               title="Open video directly in Google Drive"
             >
@@ -154,7 +170,10 @@ export function ProjectCRTMonitor({ project, onExpand }) {
           {onExpand && (
             <button
               type="button"
-              onClick={onExpand}
+              onClick={() => {
+                playArcadeSound('expand');
+                onExpand();
+              }}
               className="crt-icon-btn"
               title="Expand Mission Dossier"
             >

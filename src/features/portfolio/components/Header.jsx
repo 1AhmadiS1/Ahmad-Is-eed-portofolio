@@ -55,14 +55,22 @@ export function Header() {
     }
   };
 
-  // Track scroll position for dynamic sticky navbar styling
+  // Track scroll position for dynamic sticky navbar styling (Throttled with rAF)
   useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 20);
+    let ticking = false;
 
-      // Section tracking for active indicator
-      const sections = ['contact', 'projects', 'skills', 'about'];
-      const scrollPosition = window.scrollY + 250;
+    const updateScrollState = () => {
+      const scrollY = window.scrollY;
+      setScrolled((prev) => (scrollY > 20 !== prev ? scrollY > 20 : prev));
+
+      if (scrollY < 200) {
+        setActiveSection((prev) => (prev !== 'about' ? 'about' : prev));
+        ticking = false;
+        return;
+      }
+
+      const sections = ['contact', 'education', 'projects', 'skills', 'about'];
+      const scrollPosition = scrollY + 250;
 
       for (const sectionId of sections) {
         const el = document.getElementById(sectionId);
@@ -70,18 +78,23 @@ export function Header() {
           const top = el.offsetTop;
           const height = el.offsetHeight;
           if (scrollPosition >= top && scrollPosition < top + height) {
-            setActiveSection(sectionId);
-            return;
+            setActiveSection((prev) => (prev !== sectionId ? sectionId : prev));
+            break;
           }
         }
       }
-      if (window.scrollY < 200) {
-        setActiveSection('about');
+      ticking = false;
+    };
+
+    const handleScroll = () => {
+      if (!ticking) {
+        ticking = true;
+        window.requestAnimationFrame(updateScrollState);
       }
     };
 
     window.addEventListener('scroll', handleScroll, { passive: true });
-    handleScroll();
+    updateScrollState();
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
@@ -125,7 +138,8 @@ export function Header() {
     { id: 'about', num: '01', emoji: '👾', label: 'About', href: '#about' },
     { id: 'skills', num: '02', emoji: '⚡', label: 'Skills', href: '#skills' },
     { id: 'projects', num: '03', emoji: '⚔️', label: 'Projects', href: '#projects' },
-    { id: 'contact', num: '04', emoji: '📮', label: 'Contact', href: '#contact' },
+    { id: 'education', num: '04', emoji: '🎓', label: 'Education', href: '#education' },
+    { id: 'contact', num: '05', emoji: '📮', label: 'Contact', href: '#contact' },
   ];
 
   return (

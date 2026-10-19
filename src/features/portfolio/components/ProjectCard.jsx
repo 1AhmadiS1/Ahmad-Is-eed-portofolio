@@ -1,5 +1,6 @@
 import { GitBranch, Globe, Maximize2 } from 'lucide-react';
 import { ProjectCRTMonitor } from './ProjectCRTMonitor';
+import { playArcadeSound } from '@/shared/utils/sound';
 
 function LinkedinIcon({ size = 12 }) {
   return (
@@ -49,7 +50,10 @@ export function ProjectCard({ project, index, onInspect }) {
         {/* Expand button */}
         <button
           type="button"
-          onClick={() => onInspect?.(project)}
+          onClick={() => {
+            playArcadeSound('expand');
+            onInspect?.(project);
+          }}
           className="crt-icon-btn hidden sm:flex cursor-pointer"
           title="Inspect Full Mission Dossier"
         >
@@ -61,7 +65,10 @@ export function ProjectCard({ project, index, onInspect }) {
       <div className="p-3 sm:p-4 bg-paper-deep/30 border-b-2 border-ink">
         <ProjectCRTMonitor
           project={project}
-          onExpand={() => onInspect?.(project)}
+          onExpand={() => {
+            playArcadeSound('expand');
+            onInspect?.(project);
+          }}
         />
       </div>
 
@@ -99,6 +106,7 @@ export function ProjectCard({ project, index, onInspect }) {
                 href={project.github_link}
                 target="_blank"
                 rel="noreferrer"
+                onClick={() => playArcadeSound('click')}
                 className="arcade-btn arcade-btn--github"
                 title="View GitHub Repository"
               >
@@ -112,6 +120,7 @@ export function ProjectCard({ project, index, onInspect }) {
                 href={project.linkedin_link}
                 target="_blank"
                 rel="noreferrer"
+                onClick={() => playArcadeSound('click')}
                 className="arcade-btn arcade-btn--linkedin"
                 title="View LinkedIn Project Post"
               >
@@ -125,6 +134,7 @@ export function ProjectCard({ project, index, onInspect }) {
                 href={project.website_link}
                 target="_blank"
                 rel="noreferrer"
+                onClick={() => playArcadeSound('click')}
                 className="arcade-btn arcade-btn--live"
                 title="Launch Live Project"
               >
@@ -136,7 +146,10 @@ export function ProjectCard({ project, index, onInspect }) {
 
           <button
             type="button"
-            onClick={() => onInspect?.(project)}
+            onClick={() => {
+              playArcadeSound('expand');
+              onInspect?.(project);
+            }}
             className="arcade-btn arcade-btn--inspect"
             title="Expand Full Mission Dossier"
           >

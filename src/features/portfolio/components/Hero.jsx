@@ -1,11 +1,12 @@
-import { ArrowDown, ArrowUpRight, MapPin, Terminal } from 'lucide-react';
+import { ArrowDown, ArrowUpRight, MapPin, Terminal, FileDown } from 'lucide-react';
 import { HeroVisual } from './HeroVisual';
+import { playArcadeSound } from '@/shared/utils/sound';
 
 export function Hero() {
   return (
     <section
       id="about"
-      className="relative mx-auto grid w-full max-w-[1440px] gap-10 px-4 pb-14 pt-10 sm:px-6 md:px-8 lg:min-h-[calc(100vh-76px)] lg:grid-cols-[1fr_500px] lg:items-center lg:px-12 lg:py-16 overflow-x-hidden"
+      className="relative mx-auto grid w-full max-w-[1440px] gap-10 px-4 pb-14 pt-10 sm:px-6 md:px-8 lg:min-h-[calc(100vh-76px)] lg:grid-cols-[1fr_500px] lg:items-center lg:px-12 lg:py-16 overflow-x-clip"
     >
       <span id="top" className="absolute -top-24" />
       {/* LEFT SIDE */}
@@ -48,9 +49,9 @@ export function Hero() {
             Full-stack Developer
           </p>
 
-          <h2 className="max-w-[680px] text-[clamp(1.8rem,3.4vw,3.8rem)] font-black leading-[1.05] tracking-[-0.035em] text-ink break-words">
+          <h2 className="max-w-[680px] text-[clamp(1.75rem,3.4vw,3.8rem)] font-black leading-[1.05] tracking-[-0.035em] text-ink break-words">
             Turning ideas into{' '}
-            <span className="relative inline-block sm:whitespace-nowrap after:absolute after:bottom-[-5px] after:left-0 after:right-0 after:h-[2px] after:bg-red">
+            <span className="relative inline-block after:absolute after:bottom-[-5px] after:left-0 after:right-0 after:h-[2px] after:bg-red">
               production-ready systems.
             </span>
           </h2>
@@ -61,13 +62,32 @@ export function Hero() {
         </div>
 
         {/* Buttons (Wave 5) */}
-        <div className="hero-wave-5 mt-8 flex flex-wrap gap-3">
-          <a href="#projects" className="solid-button">
+        <div className="hero-wave-5 mt-8 flex flex-wrap gap-2.5 sm:gap-3 max-w-full">
+          <a
+            href="#projects"
+            onClick={() => playArcadeSound('select')}
+            className="solid-button text-[11px] sm:text-xs"
+          >
             See the work
             <ArrowDown size={17} strokeWidth={2.4} />
           </a>
 
-          <a href="mailto:ahmad.imad.iseed@gmail.com" className="outline-button large">
+          <a
+            href="/Ahmad_Iseed_CV.pdf"
+            download="Ahmad_Iseed_CV.pdf"
+            onClick={() => playArcadeSound('select')}
+            className="outline-button large text-[11px] sm:text-xs border-2 border-ink bg-white shadow-[3px_3px_0_0_#ff432b] hover:bg-paper-deep hover:translate-x-[-1px] hover:translate-y-[-2px] transition-all"
+            title="Download Ahmad Is'eed Curriculum Vitae (PDF)"
+          >
+            Download CV
+            <FileDown size={16} strokeWidth={2.4} className="text-red" />
+          </a>
+
+          <a
+            href="mailto:ahmad.imad.iseed@gmail.com"
+            onClick={() => playArcadeSound('select')}
+            className="outline-button large text-[11px] sm:text-xs"
+          >
             Contact Ahmad
             <ArrowUpRight size={15} strokeWidth={2.4} />
           </a>
