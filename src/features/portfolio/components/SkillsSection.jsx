@@ -183,7 +183,7 @@ export function SkillsSection({ skills = [] }) {
       className="skills-section relative border-t-2 border-ink w-full max-w-full overflow-x-hidden"
     >
       {/* ─── ARCADE TOP HUD BAR ─── */}
-      <div className="skills-header-bar">
+      <div className="skills-header-bar wave-child-1">
         <div className="mx-auto max-w-[1580px] px-4 sm:px-6 md:px-8 lg:px-12 py-3 flex items-center justify-between">
           <div className="flex items-center gap-3">
             <div className="grid size-8 place-items-center border-2 border-ink bg-red text-white shadow-[2px_2px_0_0_#192124]">
@@ -212,7 +212,7 @@ export function SkillsSection({ skills = [] }) {
 
       <div className="mx-auto max-w-[1580px] px-4 sm:px-6 md:px-8 lg:px-12 py-10 sm:py-14">
         {/* ─── SECTION HEADER ─── */}
-        <div className="mb-8 flex flex-col md:flex-row md:items-end justify-between gap-6">
+        <div className="wave-child-2 mb-8 flex flex-col md:flex-row md:items-end justify-between gap-6">
           <div>
             <span className="kicker">⚡ Arsenal & Capabilities</span>
             <h2 className="section-title">
@@ -233,7 +233,7 @@ export function SkillsSection({ skills = [] }) {
         </div>
 
         {/* ─── ARCADE CATEGORY TABS ─── */}
-        <div className="skills-tabs-rack mb-8">
+        <div className="wave-child-3 skills-tabs-rack mb-8">
           <div className="skills-tabs-container">
             {CATEGORIES.map((cat) => (
               <SkillCategoryTab
@@ -253,7 +253,7 @@ export function SkillsSection({ skills = [] }) {
         {/* The key prop re-mounts the grid on category change, re-triggering the cascading drop-in animation */}
         <div
           key={activeCategory}
-          className="skills-items-grid"
+          className="wave-child-4 skills-items-grid"
           onMouseEnter={() => playRetroBlip('item')}
         >
           {displayedSkills.map((skill, index) => (

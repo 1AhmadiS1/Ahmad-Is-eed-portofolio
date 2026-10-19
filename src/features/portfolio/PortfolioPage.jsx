@@ -8,6 +8,7 @@ import { Footer } from './components/Footer';
 import { SpaceRoomInterlude } from './components/interludes/SpaceRoomInterlude';
 import { RetroGameLoader } from '@/shared/components/RetroGameLoader';
 import { BackToTop } from '@/shared/components/BackToTop';
+import { ScrollReveal } from '@/shared/components/ScrollReveal';
 import { usePortfolioData } from './usePortfolioData';
 
 export default function PortfolioPage() {
@@ -26,28 +27,40 @@ export default function PortfolioPage() {
             <Hero />
 
             {/* ─── SPACE ROOM 01 (BETWEEN HERO & SKILLS): 3D RINGED PLANET ─── */}
-            <SpaceRoomInterlude
-              variant="planet"
-              sectorLabel="SECTOR 01 // ORBITAL STATION"
-            />
+            <ScrollReveal threshold={0.08}>
+              <SpaceRoomInterlude
+                variant="planet"
+                sectorLabel="SECTOR 01 // ORBITAL STATION"
+              />
+            </ScrollReveal>
 
-            <SkillsSection skills={skills} />
+            <ScrollReveal threshold={0.08}>
+              <SkillsSection skills={skills} />
+            </ScrollReveal>
 
             {/* ─── SPACE ROOM 02 (BETWEEN SKILLS & WORK): HYPERSPACE WARP TUNNEL ─── */}
-            <SpaceRoomInterlude
-              variant="warp"
-              sectorLabel="SECTOR 02 // HYPERSPACE WARP"
-            />
+            <ScrollReveal threshold={0.08}>
+              <SpaceRoomInterlude
+                variant="warp"
+                sectorLabel="SECTOR 02 // HYPERSPACE WARP"
+              />
+            </ScrollReveal>
 
-            <WorkSection projects={projects} loading={loading} />
+            <ScrollReveal threshold={0.08}>
+              <WorkSection projects={projects} loading={loading} />
+            </ScrollReveal>
 
             {/* ─── SPACE ROOM 03 (BETWEEN WORK & CONTACT): DEEP SPACE BEACON ─── */}
-            <SpaceRoomInterlude
-              variant="satellite"
-              sectorLabel="SECTOR 03 // COMMS RELAY"
-            />
+            <ScrollReveal threshold={0.08}>
+              <SpaceRoomInterlude
+                variant="satellite"
+                sectorLabel="SECTOR 03 // COMMS RELAY"
+              />
+            </ScrollReveal>
 
-            <ContactSection />
+            <ScrollReveal threshold={0.08}>
+              <ContactSection />
+            </ScrollReveal>
           </main>
           <Footer />
           <BackToTop />

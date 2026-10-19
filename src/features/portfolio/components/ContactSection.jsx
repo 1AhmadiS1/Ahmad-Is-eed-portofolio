@@ -26,7 +26,7 @@ export function ContactSection() {
       className="contact-section relative border-t-2 border-ink w-full max-w-full overflow-x-hidden bg-paper"
     >
       {/* ─── ARCADE TOP HUD BAR ─── */}
-      <div className="skills-header-bar">
+      <div className="skills-header-bar wave-child-1">
         <div className="mx-auto max-w-[1580px] px-4 sm:px-6 md:px-8 lg:px-12 py-3 flex items-center justify-between">
           <div className="flex items-center gap-3">
             <div className="grid size-8 place-items-center border-2 border-ink bg-red text-white shadow-[2px_2px_0_0_#192124]">
@@ -56,7 +56,7 @@ export function ContactSection() {
 
       <div className="mx-auto max-w-[1580px] px-4 sm:px-6 md:px-8 lg:px-12 py-10 sm:py-16">
         {/* ─── SECTION TITLE & HOOK ─── */}
-        <div className="mb-12 flex flex-col md:flex-row md:items-end justify-between gap-6">
+        <div className="wave-child-2 mb-12 flex flex-col md:flex-row md:items-end justify-between gap-6">
           <div>
             <span className="kicker">⚡ Initiate Contact</span>
             <h2 className="section-title">
@@ -79,7 +79,7 @@ export function ContactSection() {
         </div>
 
         {/* ─── TRANSMISSION CHANNELS GRID ─── */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6">
+        <div className="wave-child-3 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6">
           
           {/* 1. EMAIL CHANNEL */}
           <div className="contact-card border-2 border-ink bg-paper p-5 sm:p-6 shadow-[4px_4px_0_0_#192124] hover:shadow-[6px_6px_0_0_#ff432b] hover:translate-x-[-2px] hover:translate-y-[-2px] transition-all flex flex-col justify-between">

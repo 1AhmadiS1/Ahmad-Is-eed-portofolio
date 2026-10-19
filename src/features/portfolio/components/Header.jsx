@@ -131,7 +131,7 @@ export function Header() {
   return (
     <>
       <header
-        className={`sticky top-0 z-50 w-full transition-all duration-300 ${
+        className={`sticky top-0 z-50 w-full transition-all duration-300 header-wave ${
           scrolled
             ? 'border-b-2 border-ink bg-paper/95 backdrop-blur-md shadow-[0_4px_0_0_#192124]'
             : 'border-b-2 border-ink bg-paper/85 backdrop-blur-sm'

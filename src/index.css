@@ -826,6 +826,115 @@
   50% { transform: scale(1.35); opacity: 0.65; }
 }
 
+/* ═══ WAVE ENTRANCE ANIMATION SYSTEM ═══ */
+@keyframes waveUp {
+  0% {
+    opacity: 0;
+    transform: translateY(32px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes waveDown {
+  0% {
+    opacity: 0;
+    transform: translateY(-24px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes waveScale {
+  0% {
+    opacity: 0;
+    transform: translateY(28px) scale(0.92);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* Initial Header Wave */
+.header-wave {
+  animation: waveDown 0.65s cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation-delay: 40ms;
+}
+
+/* Initial Hero Cascading Wave */
+.hero-wave-1 {
+  animation: waveUp 0.75s cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation-delay: 100ms;
+}
+
+.hero-wave-2 {
+  animation: waveUp 0.75s cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation-delay: 220ms;
+}
+
+.hero-wave-3 {
+  animation: waveUp 0.75s cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation-delay: 350ms;
+}
+
+.hero-wave-4 {
+  animation: waveUp 0.75s cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation-delay: 480ms;
+}
+
+.hero-wave-5 {
+  animation: waveUp 0.75s cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation-delay: 600ms;
+}
+
+.hero-wave-6 {
+  animation: waveUp 0.75s cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation-delay: 720ms;
+}
+
+.hero-wave-visual {
+  animation: waveScale 0.85s cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation-delay: 380ms;
+}
+
+/* ═══ SCROLL REVEAL WAVE SYSTEM ═══ */
+.scroll-reveal {
+  opacity: 0;
+  transform: translateY(36px);
+  transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
+}
+
+.scroll-reveal.is-revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.scroll-reveal.is-revealed .wave-child-1 {
+  animation: waveUp 0.7s cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation-delay: 60ms;
+}
+
+.scroll-reveal.is-revealed .wave-child-2 {
+  animation: waveUp 0.7s cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation-delay: 180ms;
+}
+
+.scroll-reveal.is-revealed .wave-child-3 {
+  animation: waveUp 0.7s cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation-delay: 300ms;
+}
+
+.scroll-reveal.is-revealed .wave-child-4 {
+  animation: waveUp 0.7s cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation-delay: 420ms;
+}
+
 /* ═══ 3D SHAPE ANIMATIONS ═══ */
 
 @keyframes orbit-spin {

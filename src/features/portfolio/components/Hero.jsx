@@ -11,11 +11,10 @@ export function Hero() {
       {/* LEFT SIDE */}
       <div className="min-w-0">
 
-        {/* Location / status */}
-        <div className="mb-8 flex flex-wrap items-center gap-2 font-mono text-[10px] font-black uppercase tracking-[0.16em] text-muted">
-                    <span className="inline-flex items-center gap-1.5 text-ink">
+        {/* Location / status (Wave 1) */}
+        <div className="hero-wave-1 mb-8 flex flex-wrap items-center gap-2 font-mono text-[10px] font-black uppercase tracking-[0.16em] text-muted">
+          <span className="inline-flex items-center gap-1.5 text-ink">
             <span className="h-1.5 w-1.5 rounded-full bg-red shadow-[0_0_0_3px_rgba(220,38,38,0.1)]" />
-
           </span>
           <span className="text-red">01</span>
 
@@ -24,18 +23,16 @@ export function Hero() {
           <MapPin size={13} />
 
           <span>Hebron, Palestine</span>
-
-
         </div>
 
-        {/* Technical label */}
-        <div className="mb-5 inline-flex items-center gap-2 font-mono text-[11px] font-black uppercase tracking-[0.22em] text-red">
+        {/* Technical label (Wave 2) */}
+        <div className="hero-wave-2 mb-5 inline-flex items-center gap-2 font-mono text-[11px] font-black uppercase tracking-[0.22em] text-red">
           <Terminal size={14} />
           Software Engineer & Systems Builder
         </div>
 
-        {/* Name */}
-        <div className="relative border-l-2 border-red pl-4">
+        {/* Name (Wave 3) */}
+        <div className="hero-wave-3 relative border-l-2 border-red pl-4">
           <span className="absolute -top-4 left-4 font-mono text-[9px] font-black tracking-[0.18em] text-muted">
             /01
           </span>
@@ -45,10 +42,10 @@ export function Hero() {
           </h1>
         </div>
 
-        {/* Main copy */}
-        <div className="mt-9 max-w-[720px] pl-3 sm:pl-5">
+        {/* Main copy (Wave 4) */}
+        <div className="hero-wave-4 mt-9 max-w-[720px] pl-3 sm:pl-5">
           <p className="mb-2 font-mono text-xs font-black uppercase tracking-[0.18em] text-red">
-          Full-stack Developer
+            Full-stack Developer
           </p>
 
           <h2 className="max-w-[680px] text-[clamp(1.8rem,3.4vw,3.8rem)] font-black leading-[1.05] tracking-[-0.035em] text-ink break-words">
@@ -63,8 +60,8 @@ export function Hero() {
           </p>
         </div>
 
-        {/* Buttons */}
-        <div className="mt-8 flex flex-wrap gap-3">
+        {/* Buttons (Wave 5) */}
+        <div className="hero-wave-5 mt-8 flex flex-wrap gap-3">
           <a href="#projects" className="solid-button">
             See the work
             <ArrowDown size={17} strokeWidth={2.4} />
@@ -76,8 +73,8 @@ export function Hero() {
           </a>
         </div>
 
-        {/* Stack */}
-        <div className="mt-10 flex flex-wrap items-center gap-4 border-t border-ink/10 pt-5">
+        {/* Stack (Wave 6) */}
+        <div className="hero-wave-6 mt-10 flex flex-wrap items-center gap-4 border-t border-ink/10 pt-5">
           <span className="font-mono text-[9px] font-black tracking-[0.2em] text-muted">
             CORE STACK
           </span>
@@ -90,8 +87,6 @@ export function Hero() {
 
             <span>Django REST</span>
 
-
-
             <span className="mx-3 h-1 w-1 rounded-full bg-red" />
 
             <span>React</span>
@@ -99,8 +94,10 @@ export function Hero() {
         </div>
       </div>
 
-      {/* RIGHT SIDE */}
-      <HeroVisual />
+      {/* RIGHT SIDE (Wave Visual) */}
+      <div className="hero-wave-visual">
+        <HeroVisual />
+      </div>
     </section>
   );
 }

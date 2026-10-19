@@ -66,7 +66,7 @@ export function WorkSection({ projects = [], loading = false }) {
       <span id="work" className="absolute -top-20" />
 
       {/* ─── ARCADE TOP HUD BAR ─── */}
-      <div className="skills-header-bar">
+      <div className="skills-header-bar wave-child-1">
         <div className="mx-auto max-w-[1580px] px-4 sm:px-6 md:px-8 lg:px-12 py-3 flex items-center justify-between">
           <div className="flex items-center gap-3">
             <div className="grid size-8 place-items-center border-2 border-ink bg-blue text-white shadow-[2px_2px_0_0_#192124]">
@@ -95,7 +95,7 @@ export function WorkSection({ projects = [], loading = false }) {
 
       <div className="mx-auto max-w-[1580px] px-4 sm:px-6 md:px-8 lg:px-12 py-10 sm:py-14">
         {/* ─── SECTION HEADING & SWAPPER CONTROLS ─── */}
-        <div className="mb-6 flex flex-col md:flex-row md:items-end justify-between gap-6">
+        <div className="wave-child-2 mb-6 flex flex-col md:flex-row md:items-end justify-between gap-6">
           <div>
             <span className="kicker">⚡ Case Files & Systems</span>
             <h2 className="section-title">
@@ -141,7 +141,7 @@ export function WorkSection({ projects = [], loading = false }) {
 
         {/* ─── INTERACTIVE MISSION SWAPPER ARENA (CYBER HOLO-STAGE) ─── */}
         <div
-          className="cyber-holo-stage relative mt-6"
+          className="wave-child-3 cyber-holo-stage relative mt-6"
           onTouchStart={handleTouchStart}
           onTouchEnd={handleTouchEnd}
         >
