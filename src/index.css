@@ -2586,6 +2586,682 @@
 }
 
 
+/* ═══════════════════════════════════════════════════════════════════════════════
+   ARCADE BATTLE INTERLUDE — SPACE INVADERS STYLE INTERACTIVE ARENA
+   ═══════════════════════════════════════════════════════════════════════════════ */
+
+.arcade-battle-section {
+  position: relative;
+  width: 100%;
+  height: 420px;
+  overflow: hidden;
+  background: radial-gradient(ellipse at 50% 80%, #0c1018 0%, #060810 50%, #020206 100%);
+  border-top: 3px solid #192124;
+  border-bottom: 3px solid #192124;
+  cursor: crosshair;
+  user-select: none;
+  box-shadow:
+    inset 0 12px 30px rgba(0, 0, 0, 0.9),
+    inset 0 -12px 30px rgba(0, 0, 0, 0.9);
+}
+
+@media (min-width: 640px) {
+  .arcade-battle-section { height: 480px; }
+}
+
+/* ── SCROLLING STARFIELD (3 PARALLAX LAYERS) ── */
+
+.battle-stars {
+  position: absolute;
+  inset: -60px;
+  pointer-events: none;
+  transition: transform 0.3s cubic-bezier(0.2, 0, 0, 1);
+}
+
+.battle-stars--far {
+  background-image:
+    radial-gradient(1px 1px at 15px 25px, rgba(255,255,255,0.5), transparent),
+    radial-gradient(1px 1px at 55px 85px, rgba(255,255,255,0.4), transparent),
+    radial-gradient(1px 1px at 100px 45px, rgba(255,255,255,0.6), transparent),
+    radial-gradient(1px 1px at 140px 120px, rgba(216,255,102,0.3), transparent),
+    radial-gradient(1px 1px at 180px 70px, rgba(255,255,255,0.5), transparent);
+  background-size: 200px 160px;
+  opacity: 0.5;
+  animation: battleStarScroll 25s linear infinite;
+}
+
+.battle-stars--mid {
+  background-image:
+    radial-gradient(1.5px 1.5px at 25px 40px, #ffffff, transparent),
+    radial-gradient(1.5px 1.5px at 80px 100px, #d8ff66, transparent),
+    radial-gradient(1px 1px at 130px 20px, #ffffff, transparent),
+    radial-gradient(1.5px 1.5px at 170px 130px, #ff432b, transparent),
+    radial-gradient(1px 1px at 210px 60px, #ffffff, transparent);
+  background-size: 240px 180px;
+  opacity: 0.7;
+  animation: battleStarScroll 16s linear infinite;
+}
+
+.battle-stars--close {
+  background-image:
+    radial-gradient(2px 2px at 35px 55px, #ffffff, transparent),
+    radial-gradient(2px 2px at 95px 25px, #d8ff66, transparent),
+    radial-gradient(2.5px 2.5px at 155px 95px, #ffffff, transparent),
+    radial-gradient(2px 2px at 225px 45px, #ff432b, transparent);
+  background-size: 280px 140px;
+  opacity: 0.85;
+  animation: battleStarScroll 10s linear infinite;
+}
+
+@keyframes battleStarScroll {
+  0% { background-position: 0 0; }
+  100% { background-position: 0 600px; }
+}
+
+/* ── INVADER FORMATION ── */
+
+.invader-formation {
+  position: absolute;
+  top: 12%;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  z-index: 5;
+  animation: invaderDrift 5s ease-in-out infinite alternate;
+  transition: transform 0.3s ease;
+}
+
+.invader-row {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+@media (max-width: 640px) {
+  .invader-row { gap: 6px; }
+}
+
+.pixel-invader {
+  position: relative;
+  animation: invaderBob 0.8s ease-in-out infinite alternate;
+  transition: transform 0.15s ease;
+}
+
+.pixel-invader:hover {
+  transform: scale(1.6) rotate(15deg) !important;
+  filter: brightness(2) drop-shadow(0 0 8px #ff432b);
+  z-index: 20;
+}
+
+.invader-pixel-body {
+  image-rendering: pixelated;
+  transition: all 0.15s ease;
+}
+
+/* Elite invader (top row — bigger, red glow) */
+.invader-body--elite {
+  width: 20px;
+  height: 16px;
+  background: #ff432b;
+  clip-path: polygon(
+    25% 0%, 75% 0%,
+    100% 30%, 85% 60%,
+    100% 100%, 75% 80%,
+    50% 100%, 25% 80%,
+    0% 100%, 15% 60%,
+    0% 30%
+  );
+  box-shadow: 0 0 8px rgba(255, 67, 43, 0.7);
+  animation: invaderGlow 2s ease-in-out infinite alternate;
+}
+
+/* Standard invader (middle rows — acid colored) */
+.invader-body--standard {
+  width: 18px;
+  height: 14px;
+  background: #d8ff66;
+  clip-path: polygon(
+    0% 30%, 20% 0%, 40% 20%, 60% 20%, 80% 0%, 100% 30%,
+    90% 60%, 100% 100%, 70% 80%, 50% 100%, 30% 80%, 0% 100%, 10% 60%
+  );
+  box-shadow: 0 0 6px rgba(216, 255, 102, 0.5);
+}
+
+/* Grunt invader (bottom rows — blue) */
+.invader-body--grunt {
+  width: 16px;
+  height: 12px;
+  background: #2556e8;
+  clip-path: polygon(
+    10% 0%, 90% 0%,
+    100% 40%, 80% 100%,
+    60% 70%, 40% 70%,
+    20% 100%, 0% 40%
+  );
+  box-shadow: 0 0 5px rgba(37, 86, 232, 0.5);
+}
+
+@keyframes invaderDrift {
+  0% { transform: translateX(-50%) translateX(-60px); }
+  100% { transform: translateX(-50%) translateX(60px); }
+}
+
+@keyframes invaderBob {
+  0% { transform: translateY(0px); }
+  100% { transform: translateY(-4px); }
+}
+
+@keyframes invaderGlow {
+  0% { box-shadow: 0 0 5px rgba(255, 67, 43, 0.4); }
+  100% { box-shadow: 0 0 14px rgba(255, 67, 43, 0.9), 0 0 30px rgba(255, 67, 43, 0.3); }
+}
+
+/* ── BONUS UFO ── */
+
+.bonus-ufo {
+  position: absolute;
+  top: 6%;
+  z-index: 8;
+  animation: ufoFly 12s linear infinite;
+}
+
+.ufo-body {
+  width: 36px;
+  height: 14px;
+  background: linear-gradient(180deg, #ff432b 0%, #cc1a00 100%);
+  border-radius: 50% 50% 30% 30%;
+  position: relative;
+  box-shadow: 0 0 12px rgba(255, 67, 43, 0.7);
+}
+
+.ufo-body::before {
+  content: '';
+  position: absolute;
+  top: -6px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 16px;
+  height: 10px;
+  background: linear-gradient(180deg, #ffcc00 0%, #ff6600 100%);
+  border-radius: 50%;
+  box-shadow: 0 0 8px rgba(255, 200, 0, 0.8);
+}
+
+.ufo-glow {
+  position: absolute;
+  bottom: -4px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 28px;
+  height: 6px;
+  background: radial-gradient(ellipse, rgba(216, 255, 102, 0.7), transparent);
+  filter: blur(2px);
+  animation: ufoBeam 0.5s ease-in-out infinite alternate;
+}
+
+@keyframes ufoFly {
+  0% { left: -60px; opacity: 0; }
+  5% { opacity: 1; }
+  95% { opacity: 1; }
+  100% { left: calc(100% + 60px); opacity: 0; }
+}
+
+@keyframes ufoBeam {
+  0% { opacity: 0.4; width: 20px; }
+  100% { opacity: 1; width: 34px; }
+}
+
+/* ── LASER BOLTS ── */
+
+.laser-bolt {
+  position: absolute;
+  bottom: 80px;
+  transform: translateX(-50%);
+  z-index: 15;
+  animation: laserFire 0.7s ease-in forwards;
+  pointer-events: none;
+}
+
+.laser-beam {
+  width: 3px;
+  height: 28px;
+  background: linear-gradient(0deg, rgba(216, 255, 102, 0), #d8ff66 40%, #ffffff 100%);
+  border-radius: 2px;
+  box-shadow:
+    0 0 6px #d8ff66,
+    0 0 14px rgba(216, 255, 102, 0.6),
+    0 0 28px rgba(216, 255, 102, 0.3);
+}
+
+.laser-trail {
+  width: 1px;
+  height: 50px;
+  margin: 0 auto;
+  background: linear-gradient(0deg, transparent, rgba(216, 255, 102, 0.3));
+}
+
+@keyframes laserFire {
+  0% {
+    transform: translateX(-50%) translateY(0);
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(-50%) translateY(-360px);
+    opacity: 0;
+  }
+}
+
+/* ── EXPLOSION PARTICLES ── */
+
+.arcade-explosion {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  z-index: 20;
+  pointer-events: none;
+}
+
+.explosion-particle {
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  background: #ff432b;
+  top: 50%;
+  left: 50%;
+  animation: particleBurst 0.65s cubic-bezier(0.2, 0.8, 0.3, 1) forwards;
+  box-shadow: 0 0 4px #ff432b;
+}
+
+.explosion-particle:nth-child(odd) {
+  background: #d8ff66;
+  box-shadow: 0 0 4px #d8ff66;
+}
+
+.explosion-particle:nth-child(3n) {
+  background: #ffffff;
+  box-shadow: 0 0 4px #ffffff;
+  width: 3px;
+  height: 3px;
+}
+
+@keyframes particleBurst {
+  0% {
+    transform: translate(-50%, -50%) rotate(var(--angle)) translateY(0);
+    opacity: 1;
+  }
+  100% {
+    transform: translate(-50%, -50%) rotate(var(--angle)) translateY(-55px);
+    opacity: 0;
+  }
+}
+
+.explosion-flash {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #ffffff;
+  transform: translate(-50%, -50%);
+  animation: flashPop 0.4s ease-out forwards;
+  box-shadow: 0 0 20px #ff432b, 0 0 40px rgba(255, 67, 43, 0.5);
+}
+
+@keyframes flashPop {
+  0% { transform: translate(-50%, -50%) scale(0.5); opacity: 1; }
+  50% { transform: translate(-50%, -50%) scale(3); opacity: 0.8; }
+  100% { transform: translate(-50%, -50%) scale(5); opacity: 0; }
+}
+
+.explosion-score {
+  position: absolute;
+  top: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: var(--font-mono, monospace);
+  font-size: 11px;
+  font-weight: 900;
+  color: #d8ff66;
+  text-shadow: 0 0 8px #d8ff66;
+  animation: scoreFloat 0.65s ease-out forwards;
+  white-space: nowrap;
+  pointer-events: none;
+}
+
+@keyframes scoreFloat {
+  0% { transform: translateX(-50%) translateY(0); opacity: 1; }
+  100% { transform: translateX(-50%) translateY(-40px); opacity: 0; }
+}
+
+/* ── PLAYER SHIP ── */
+
+.player-ship-wrapper {
+  position: absolute;
+  bottom: 60px;
+  transform: translateX(-50%);
+  z-index: 12;
+  transition: left 0.12s cubic-bezier(0.2, 0, 0, 1);
+}
+
+.player-ship {
+  position: relative;
+  width: 32px;
+  height: 24px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+}
+
+.ship-body {
+  width: 12px;
+  height: 22px;
+  background: linear-gradient(180deg, #ffffff 0%, #c8d0d8 50%, #8890a0 100%);
+  clip-path: polygon(50% 0%, 100% 70%, 85% 100%, 15% 100%, 0% 70%);
+  position: relative;
+  z-index: 2;
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.4);
+}
+
+.ship-wing {
+  position: absolute;
+  bottom: 0;
+  width: 14px;
+  height: 10px;
+  background: linear-gradient(180deg, #2556e8 0%, #1a3db0 100%);
+  z-index: 1;
+  box-shadow: 0 0 6px rgba(37, 86, 232, 0.5);
+}
+
+.ship-wing--left {
+  left: -2px;
+  clip-path: polygon(100% 0%, 100% 100%, 0% 100%);
+}
+
+.ship-wing--right {
+  right: -2px;
+  clip-path: polygon(0% 0%, 100% 100%, 0% 100%);
+}
+
+.ship-cockpit {
+  position: absolute;
+  top: 6px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: #d8ff66;
+  box-shadow: 0 0 6px #d8ff66;
+  z-index: 3;
+  animation: cockpitBlink 1.5s infinite;
+}
+
+@keyframes cockpitBlink {
+  0%, 100% { opacity: 1; box-shadow: 0 0 6px #d8ff66; }
+  50% { opacity: 0.5; box-shadow: 0 0 2px #d8ff66; }
+}
+
+/* Ship thruster flames */
+.ship-thruster {
+  display: flex;
+  justify-content: center;
+  gap: 2px;
+  margin-top: -2px;
+}
+
+.thruster-flame {
+  width: 3px;
+  background: linear-gradient(180deg, #ffcc00, #ff6600, #ff432b, transparent);
+  border-radius: 0 0 2px 2px;
+  animation: thrusterFlicker 0.15s infinite alternate;
+}
+
+.flame-1 { height: 10px; animation-delay: 0s; }
+.flame-2 { height: 16px; animation-delay: 0.05s; }
+.flame-3 { height: 10px; animation-delay: 0.1s; }
+
+.thruster--active .thruster-flame {
+  height: 22px !important;
+  box-shadow: 0 4px 12px rgba(255, 100, 0, 0.7);
+}
+
+.thruster--active .flame-2 {
+  height: 30px !important;
+}
+
+@keyframes thrusterFlicker {
+  0% { opacity: 0.7; transform: scaleY(0.85); }
+  100% { opacity: 1; transform: scaleY(1.1); }
+}
+
+/* Ship crosshair */
+.ship-crosshair {
+  position: absolute;
+  top: -20px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 8px;
+  height: 8px;
+  border: 1px solid rgba(216, 255, 102, 0.6);
+  border-radius: 50%;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.ship--active .ship-crosshair {
+  opacity: 1;
+  animation: crosshairPulse 1s infinite ease-in-out;
+}
+
+.ship--active .player-ship {
+  filter: drop-shadow(0 0 8px rgba(37, 86, 232, 0.6));
+}
+
+@keyframes crosshairPulse {
+  0%, 100% { transform: translateX(-50%) scale(1); border-color: rgba(216, 255, 102, 0.6); }
+  50% { transform: translateX(-50%) scale(1.5); border-color: rgba(255, 67, 43, 0.8); }
+}
+
+/* ── RETRO GAME HUD ── */
+
+.battle-hud {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 30;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 14px;
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0.85) 0%, rgba(0, 0, 0, 0.4) 80%, transparent 100%);
+  border-bottom: 1px solid rgba(216, 255, 102, 0.15);
+  pointer-events: none;
+}
+
+@media (min-width: 640px) {
+  .battle-hud { padding: 10px 24px; }
+}
+
+.hud-left, .hud-right {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.hud-right { align-items: flex-end; }
+
+.hud-label {
+  font-family: var(--font-mono, monospace);
+  font-size: 8px;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.hud-value {
+  font-family: var(--font-mono, monospace);
+  font-size: 16px;
+  font-weight: 900;
+  color: #d8ff66;
+  text-shadow: 0 0 8px rgba(216, 255, 102, 0.5);
+  letter-spacing: 0.1em;
+}
+
+.hud-score {
+  animation: scoreGlow 2s ease-in-out infinite alternate;
+}
+
+@keyframes scoreGlow {
+  0% { text-shadow: 0 0 4px rgba(216, 255, 102, 0.3); }
+  100% { text-shadow: 0 0 12px rgba(216, 255, 102, 0.8), 0 0 24px rgba(216, 255, 102, 0.3); }
+}
+
+.hud-center {
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+}
+
+@media (min-width: 640px) {
+  .hud-center { display: flex; }
+}
+
+.hud-title {
+  font-family: var(--font-mono, monospace);
+  font-size: 10px;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.25em;
+  color: #ff432b;
+  text-shadow: 0 0 6px rgba(255, 67, 43, 0.5);
+}
+
+.hud-subtitle {
+  font-family: var(--font-mono, monospace);
+  font-size: 8px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  color: rgba(255, 255, 255, 0.4);
+  animation: subtitleBlink 3s infinite;
+}
+
+@keyframes subtitleBlink {
+  0%, 70%, 100% { opacity: 1; }
+  80%, 90% { opacity: 0.3; }
+}
+
+.hud-lives {
+  display: flex;
+  gap: 4px;
+}
+
+.life-icon {
+  font-size: 12px;
+  color: #d8ff66;
+  text-shadow: 0 0 4px #d8ff66;
+  animation: lifePulse 2.5s infinite ease-in-out;
+}
+
+.life-icon:nth-child(2) { animation-delay: 0.3s; }
+.life-icon:nth-child(3) { animation-delay: 0.6s; }
+
+@keyframes lifePulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.6; }
+}
+
+/* ── SHIELD BARRIERS ── */
+
+.shield-barriers {
+  position: absolute;
+  bottom: 90px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 50px;
+  z-index: 4;
+  pointer-events: none;
+}
+
+@media (max-width: 640px) {
+  .shield-barriers { gap: 24px; }
+}
+
+.shield-block {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.shield-top {
+  width: 28px;
+  height: 10px;
+  background: #2556e8;
+  border-radius: 6px 6px 0 0;
+  box-shadow: 0 0 6px rgba(37, 86, 232, 0.5);
+}
+
+.shield-body-block {
+  width: 24px;
+  height: 12px;
+  background: #2556e8;
+  border-radius: 0 0 2px 2px;
+  opacity: 0.7;
+  box-shadow: 0 0 4px rgba(37, 86, 232, 0.3);
+}
+
+/* ── GROUND LINE ── */
+
+.battle-ground-line {
+  position: absolute;
+  bottom: 45px;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg,
+    transparent 0%,
+    rgba(37, 86, 232, 0.15) 15%,
+    rgba(37, 86, 232, 0.4) 50%,
+    rgba(37, 86, 232, 0.15) 85%,
+    transparent 100%
+  );
+  z-index: 3;
+}
+
+.battle-ground-line::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 45px;
+  background: linear-gradient(180deg, transparent, rgba(37, 86, 232, 0.04));
+  pointer-events: none;
+}
+
+/* ── ACTIVE / HOVER STATES ── */
+
+.arcade-battle--active {
+  box-shadow:
+    inset 0 12px 30px rgba(0, 0, 0, 0.9),
+    inset 0 -12px 30px rgba(0, 0, 0, 0.9),
+    inset 0 0 100px rgba(37, 86, 232, 0.05);
+}
+
+.arcade-battle--active .invader-formation {
+  animation-duration: 3s;
+}
+
+.arcade-battle--active .battle-stars--close {
+  animation-duration: 6s;
+}
 
 
 
