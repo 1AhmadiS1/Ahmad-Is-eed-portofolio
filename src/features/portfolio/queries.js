@@ -196,20 +196,30 @@ export const fallbackProjects = [
     github_link: 'https://github.com/1AhmadiS1/Small-Shop-Debt-Tracker.git',
     linkedin_link: null,
     website_link: null,
-    demo_video: 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/TearsOfSteel.mp4',
-    video_caption: 'Debt Management System — Transaction Ledger & Payment Processing',
     images: [
       {
-        image: 'https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?auto=format&fit=crop&w=1200&q=80',
-        caption: 'Credit Purchases, Installment Payments & Debt Ledger Dashboard',
+        image: '/projects/debt-tracker/1.png',
       },
       {
-        image: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=1200&q=80',
-        caption: 'Customer Account Summaries & Automated Due Date Calculations',
+        image: '/projects/debt-tracker/2.png',
       },
       {
-        image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=1200&q=80',
-        caption: 'Shop-Level Data Isolation & Role-Based Permissions Matrix',
+        image: '/projects/debt-tracker/3.png',
+      },
+      {
+        image: '/projects/debt-tracker/4.png',
+      },
+      {
+        image: '/projects/debt-tracker/5.png',
+      },
+      {
+        image: '/projects/debt-tracker/6.png',
+      },
+      {
+        image: '/projects/debt-tracker/7.png',
+      },
+      {
+        image: '/projects/debt-tracker/8.png',
       },
     ],
     highlights: [
