@@ -1,35 +1,11 @@
-import { useEffect, useState } from 'react';
-import { fallbackProjects, fallbackSkills, getPortfolioData } from './queries';
+import { fallbackProjects, fallbackSkills } from './queries';
 
-const initialPortfolioState = {
+const staticPortfolioData = {
   skills: fallbackSkills,
   projects: fallbackProjects,
-  loading: true,
+  loading: false,
 };
 
 export function usePortfolioData() {
-  const [data, setData] = useState(initialPortfolioState);
-
-  useEffect(() => {
-    const controller = new AbortController();
-
-    async function loadPortfolio() {
-      try {
-        const portfolio = await getPortfolioData({ signal: controller.signal });
-        setData({ ...portfolio, loading: false });
-      } catch (error) {
-        if (error.name !== 'AbortError') {
-          setData({ ...initialPortfolioState, loading: false });
-        }
-      }
-    }
-
-    loadPortfolio();
-
-    return () => {
-      controller.abort();
-    };
-  }, []);
-
-  return data;
+  return staticPortfolioData;
 }

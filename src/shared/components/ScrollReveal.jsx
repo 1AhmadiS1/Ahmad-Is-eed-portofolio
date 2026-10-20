@@ -17,24 +17,25 @@ export function ScrollReveal({
   threshold = 0.02,
 }) {
   const ref = useRef(null);
-  const [isRevealed, setIsRevealed] = useState(false);
-
-  useEffect(() => {
-    if (typeof window === 'undefined') return;
-
-    // If user prefers reduced motion or no IntersectionObserver, reveal immediately
+  const [isRevealed, setIsRevealed] = useState(() => {
+    if (typeof window === 'undefined') return false;
     if (
       !('IntersectionObserver' in window) ||
       window.matchMedia?.('(prefers-reduced-motion: reduce)')?.matches
     ) {
-      setIsRevealed(true);
-      return;
+      return true;
     }
+    return false;
+  });
 
-    // Immediate check: if element is already within viewport on initial render, reveal immediately
+  useEffect(() => {
+    if (typeof window === 'undefined' || isRevealed) return;
+
+    // Immediate check: only reveal immediately if already visibly in viewport on page load
     if (ref.current) {
       const rect = ref.current.getBoundingClientRect();
-      if (rect.top <= (window.innerHeight || document.documentElement.clientHeight) + 100) {
+      const viewportHeight = window.innerHeight || document.documentElement.clientHeight;
+      if (rect.top <= viewportHeight * 0.75) {
         setIsRevealed(true);
         return;
       }
@@ -48,10 +49,9 @@ export function ScrollReveal({
         }
       },
       {
-        threshold,
-        // Generous positive rootMargin triggers reveal slightly before entering view,
-        // eliminating lag and visible pop-in on mobile phones and desktops
-        rootMargin: '100px 0px 50px 0px',
+        threshold: 0.04,
+        // Triggers as the section arrives into the bottom of the viewport for an eye-appealing wave entrance
+        rootMargin: '0px 0px -30px 0px',
       }
     );
 
@@ -59,17 +59,10 @@ export function ScrollReveal({
       observer.observe(ref.current);
     }
 
-    // Safety fallback for mobile phones (iOS Safari/Android low power modes)
-    // Ensures content is NEVER stuck invisible
-    const fallbackTimer = setTimeout(() => {
-      setIsRevealed(true);
-    }, 1200);
-
     return () => {
       observer.disconnect();
-      clearTimeout(fallbackTimer);
     };
-  }, [threshold]);
+  }, [threshold, isRevealed]);
 
   return (
     <div

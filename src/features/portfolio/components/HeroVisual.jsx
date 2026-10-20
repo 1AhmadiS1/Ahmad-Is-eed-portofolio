@@ -1,5 +1,6 @@
 import { useState, useRef } from 'react';
-import profileImage from '@/assets/ahmad-profile.png';
+import profileImageWebp from '@/assets/ahmad-profile.webp';
+import profileImagePng from '@/assets/ahmad-profile.png';
 import { Cpu } from 'lucide-react';
 
 export function HeroVisual() {
@@ -94,7 +95,17 @@ export function HeroVisual() {
         {/* ── Front ── */}
         <div className="card-face card-front">
           <div className="card-img-wrap">
-            <img src={profileImage} alt="Ahmad Is'eed" />
+            <picture className="block h-full w-full">
+              <source srcSet={profileImageWebp} type="image/webp" />
+              <img
+                src={profileImagePng}
+                alt="Ahmad Is'eed"
+                loading="eager"
+                fetchPriority="high"
+                decoding="async"
+                className="h-full w-full object-cover object-top"
+              />
+            </picture>
             <div className="card-img-gradient" />
           </div>
 

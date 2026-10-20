@@ -39,12 +39,11 @@ export function RetroGameLoader({ onComplete }) {
           clearInterval(interval);
           return 100;
         }
-        // Slightly random tick rate for realistic 90s console loading feel
-        const jump = prev < 75 ? Math.floor(Math.random() * 4) + 2 : Math.floor(Math.random() * 3) + 1;
+        const jump = prev < 70 ? Math.floor(Math.random() * 3) + 2 : Math.floor(Math.random() * 2) + 1;
         const next = Math.min(100, prev + jump);
         return next;
       });
-    }, 45);
+    }, 36);
 
     return () => clearInterval(interval);
   }, []);
@@ -53,12 +52,12 @@ export function RetroGameLoader({ onComplete }) {
   useEffect(() => {
     const emojiInterval = setInterval(() => {
       setSpriteIndex((prev) => (prev + 1) % RETRO_EMOJIS.length);
-    }, 180);
+    }, 160);
 
     return () => clearInterval(emojiInterval);
   }, []);
 
-  // When reaching 100%, finish and reveal page
+  // When reaching 100%, show victory banner briefly then slide up
   useEffect(() => {
     if (progress === 100) {
       const timer = setTimeout(() => {

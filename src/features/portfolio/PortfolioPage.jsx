@@ -21,10 +21,9 @@ export default function PortfolioPage() {
       {initialLoading && (
         <RetroGameLoader onComplete={() => setInitialLoading(false)} />
       )}
-      {!initialLoading && (
-        <div className="min-h-screen w-full max-w-full bg-paper text-ink flex flex-col overflow-x-hidden">
-          <Header />
-          <main className="w-full max-w-full flex-1 overflow-x-hidden">
+      <div className="min-h-screen w-full max-w-full bg-paper text-ink flex flex-col">
+        <Header />
+        <main className="w-full max-w-full flex-1">
             <Hero />
 
             {/* ─── SPACE ROOM 01 (BETWEEN HERO & SKILLS): 3D RINGED PLANET ─── */}
@@ -78,7 +77,6 @@ export default function PortfolioPage() {
           <Footer />
           <BackToTop />
         </div>
-      )}
     </>
   );
 }

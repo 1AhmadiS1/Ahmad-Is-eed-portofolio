@@ -19,7 +19,7 @@
 
   html,
   body {
-    overflow-x: hidden;
+    overflow-x: clip;
     max-width: 100%;
     width: 100%;
   }
@@ -27,6 +27,33 @@
   html {
     font-family: var(--font-sans);
     scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    scrollbar-width: thin;
+    scrollbar-color: #ff432b #192124;
+  }
+
+  /* Sleek Retro Arcade Custom Scrollbar */
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+  ::-webkit-scrollbar-track {
+    background: #192124;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #ff432b;
+    border-radius: 3px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: #d8ff66;
+  }
+
+  /* Smooth scroll for anchor links */
+  @media (prefers-reduced-motion: no-preference) {
+    html {
+      scroll-behavior: smooth;
+    }
   }
 
   body {
@@ -832,11 +859,11 @@
 @keyframes waveUp {
   0% {
     opacity: 0;
-    transform: translate3d(0, 18px, 0);
+    transform: translate3d(0, 30px, 0) scale(0.985);
   }
   100% {
     opacity: 1;
-    transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0) scale(1);
   }
 }
 
@@ -864,54 +891,62 @@
 
 /* Initial Header Wave */
 .header-wave {
-  animation: waveDown 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
-  animation-delay: 40ms;
+  animation: waveDown 0.7s cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation-delay: 50ms;
 }
 
-/* Initial Hero Cascading Wave */
+/* Initial Hero Cascading Wave — buttery smooth cascade with generous spacing */
 .hero-wave-1 {
-  animation: waveUp 0.55s cubic-bezier(0.22, 1, 0.36, 1) both;
-  animation-delay: 60ms;
+  animation: waveUp 0.85s cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation-delay: 80ms;
+  will-change: transform, opacity;
 }
 
 .hero-wave-2 {
-  animation: waveUp 0.55s cubic-bezier(0.22, 1, 0.36, 1) both;
-  animation-delay: 140ms;
+  animation: waveUp 0.85s cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation-delay: 200ms;
+  will-change: transform, opacity;
 }
 
 .hero-wave-3 {
-  animation: waveUp 0.55s cubic-bezier(0.22, 1, 0.36, 1) both;
-  animation-delay: 220ms;
+  animation: waveUp 0.85s cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation-delay: 320ms;
+  will-change: transform, opacity;
 }
 
 .hero-wave-4 {
-  animation: waveUp 0.55s cubic-bezier(0.22, 1, 0.36, 1) both;
-  animation-delay: 300ms;
+  animation: waveUp 0.85s cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation-delay: 480ms;
+  will-change: transform, opacity;
 }
 
 .hero-wave-5 {
-  animation: waveUp 0.55s cubic-bezier(0.22, 1, 0.36, 1) both;
-  animation-delay: 380ms;
+  animation: waveUp 0.85s cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation-delay: 640ms;
+  will-change: transform, opacity;
 }
 
 .hero-wave-6 {
-  animation: waveUp 0.55s cubic-bezier(0.22, 1, 0.36, 1) both;
-  animation-delay: 460ms;
+  animation: waveUp 0.85s cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation-delay: 800ms;
+  will-change: transform, opacity;
 }
 
 .hero-wave-visual {
-  animation: waveScale 0.6s cubic-bezier(0.22, 1, 0.36, 1) both;
-  animation-delay: 240ms;
+  animation: waveScale 1s cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation-delay: 300ms;
+  will-change: transform, opacity;
 }
 
 /* ═══ SCROLL REVEAL WAVE SYSTEM (HARDWARE-ACCELERATED & MOBILE-OPTIMIZED) ═══ */
 .scroll-reveal {
   opacity: 0;
-  transform: translate3d(0, 16px, 0);
-  transition: opacity 0.5s cubic-bezier(0.22, 1, 0.36, 1),
-              transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+  transform: translate3d(0, 20px, 0);
+  transition: opacity 0.75s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.75s cubic-bezier(0.16, 1, 0.3, 1);
   backface-visibility: hidden;
   -webkit-backface-visibility: hidden;
+  will-change: transform, opacity;
 }
 
 .scroll-reveal.is-revealed {
@@ -919,38 +954,52 @@
   transform: translate3d(0, 0, 0);
 }
 
+/* Staggered, fluid cascading wave children */
 .scroll-reveal.is-revealed .wave-child-1 {
-  animation: waveUp 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
-  animation-delay: 40ms;
+  animation: waveUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation-delay: 50ms;
+  will-change: transform, opacity;
 }
 
 .scroll-reveal.is-revealed .wave-child-2 {
-  animation: waveUp 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
-  animation-delay: 100ms;
+  animation: waveUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation-delay: 160ms;
+  will-change: transform, opacity;
 }
 
 .scroll-reveal.is-revealed .wave-child-3 {
-  animation: waveUp 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
-  animation-delay: 160ms;
+  animation: waveUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation-delay: 280ms;
+  will-change: transform, opacity;
 }
 
 .scroll-reveal.is-revealed .wave-child-4 {
-  animation: waveUp 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
-  animation-delay: 220ms;
+  animation: waveUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation-delay: 400ms;
+  will-change: transform, opacity;
+}
+
+/* Space room cosmic celestial entrance */
+.scroll-reveal.is-revealed .space-3d-celestial,
+.scroll-reveal.is-revealed .space-warp-tunnel,
+.scroll-reveal.is-revealed .space-satellite-station {
+  animation: waveScale 0.95s cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation-delay: 80ms;
+  will-change: transform, opacity;
 }
 
 /* ─── MOBILE PHONES OPTIMIZATION ─── */
 @media (max-width: 768px) {
   .scroll-reveal {
-    transform: translate3d(0, 10px, 0);
-    transition: opacity 0.35s ease-out, transform 0.35s ease-out;
+    transform: translate3d(0, 16px, 0);
+    transition: opacity 0.65s cubic-bezier(0.16, 1, 0.3, 1), transform 0.65s cubic-bezier(0.16, 1, 0.3, 1);
   }
   .scroll-reveal.is-revealed .wave-child-1,
   .scroll-reveal.is-revealed .wave-child-2,
   .scroll-reveal.is-revealed .wave-child-3,
   .scroll-reveal.is-revealed .wave-child-4 {
-    animation-duration: 0.35s;
-    animation-delay: 0ms !important;
+    animation-duration: 0.6s;
+    animation-delay: 40ms !important;
   }
 }
 
@@ -2458,8 +2507,9 @@
   position: absolute;
   inset: -50px;
   background-repeat: repeat;
-  transition: transform 0.25s cubic-bezier(0.2, 0, 0, 1);
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
   pointer-events: none;
+  will-change: transform;
 }
 
 .space-stars--distant {
@@ -2505,7 +2555,8 @@
   display: grid;
   place-items: center;
   perspective: 700px;
-  transition: transform 0.25s cubic-bezier(0.2, 0, 0, 1);
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: transform;
 }
 
 .space-planet {
@@ -2587,14 +2638,15 @@
   height: 160px;
   display: grid;
   place-items: center;
-  transition: transform 0.25s ease;
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: transform;
 }
 
 .warp-tunnel-ring {
   position: absolute;
   border-radius: 50%;
   border: 2px dashed rgba(216, 255, 102, 0.6);
-  animation: warpTunnelPulse 2.8s infinite cubic-bezier(0.2, 0.8, 0.2, 1);
+  animation: warpTunnelPulse 3.2s infinite cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .warp-tunnel-ring.ring-1 { width: 35px; height: 35px; animation-delay: 0s; border-color: #ff432b; }
@@ -2611,8 +2663,9 @@
 
 @keyframes warpTunnelPulse {
   0% { transform: scale(0.3) rotate(0deg); opacity: 0; }
-  30% { opacity: 0.9; }
-  100% { transform: scale(1.8) rotate(180deg); opacity: 0; }
+  20% { opacity: 0.85; }
+  60% { opacity: 0.6; }
+  100% { transform: scale(2) rotate(200deg); opacity: 0; }
 }
 
 /* Orbital Satellite */
@@ -2621,8 +2674,9 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  transition: transform 0.25s ease;
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
   animation: shipHover 4s infinite ease-in-out;
+  will-change: transform;
 }
 
 .satellite-craft {

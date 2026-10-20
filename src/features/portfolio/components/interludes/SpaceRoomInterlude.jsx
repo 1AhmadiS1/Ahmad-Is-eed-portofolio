@@ -172,7 +172,7 @@ export function SpaceRoomInterlude({
         {/* VARIANT A: 3D RINGED PLANET & MOON */}
         {variant === 'planet' && (
           <div
-            className={`space-3d-celestial transition-transform duration-200 ${
+            className={`space-3d-celestial ${
               isHovered ? 'space-celestial--hovered' : ''
             }`}
             style={{
@@ -200,7 +200,7 @@ export function SpaceRoomInterlude({
         {/* VARIANT B: HYPERSPACE WARP TUNNEL */}
         {variant === 'warp' && (
           <div
-            className={`space-warp-tunnel transition-transform duration-200 ${
+            className={`space-warp-tunnel ${
               isHovered ? 'warp--hyper' : ''
             }`}
             style={{
@@ -220,7 +220,7 @@ export function SpaceRoomInterlude({
         {/* VARIANT C: ORBITAL RETRO SATELLITE BEACON */}
         {variant === 'satellite' && (
           <div
-            className={`space-satellite-station transition-transform duration-200 ${
+            className={`space-satellite-station ${
               isHovered ? 'satellite--aim' : ''
             }`}
             style={{

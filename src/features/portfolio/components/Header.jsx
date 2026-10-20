@@ -63,26 +63,38 @@ export function Header() {
       const scrollY = window.scrollY;
       setScrolled((prev) => (scrollY > 20 !== prev ? scrollY > 20 : prev));
 
-      if (scrollY < 200) {
-        setActiveSection((prev) => (prev !== 'about' ? 'about' : prev));
+      // Check if near bottom of page -> activate contact
+      const windowHeight = window.innerHeight || document.documentElement.clientHeight;
+      const scrollHeight = document.documentElement.scrollHeight;
+      if (scrollY + windowHeight >= scrollHeight - 80) {
+        setActiveSection('contact');
         ticking = false;
         return;
       }
 
-      const sections = ['contact', 'education', 'projects', 'skills', 'about'];
-      const scrollPosition = scrollY + 250;
+      if (scrollY < 180) {
+        setActiveSection('about');
+        ticking = false;
+        return;
+      }
+
+      // Sections in visual sequence from top to bottom
+      const sections = ['about', 'skills', 'projects', 'education', 'contact'];
+      let currentSection = 'about';
+      const triggerLine = windowHeight * 0.45;
 
       for (const sectionId of sections) {
         const el = document.getElementById(sectionId);
         if (el) {
-          const top = el.offsetTop;
-          const height = el.offsetHeight;
-          if (scrollPosition >= top && scrollPosition < top + height) {
-            setActiveSection((prev) => (prev !== sectionId ? sectionId : prev));
-            break;
+          const rect = el.getBoundingClientRect();
+          // Natural threshold: switches as soon as the section occupies the upper viewport
+          if (rect.top <= triggerLine) {
+            currentSection = sectionId;
           }
         }
       }
+
+      setActiveSection((prev) => (prev !== currentSection ? currentSection : prev));
       ticking = false;
     };
 
